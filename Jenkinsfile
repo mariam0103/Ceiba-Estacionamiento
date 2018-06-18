@@ -32,7 +32,7 @@ pipeline {
 		stage('Unit Tests') {
 			steps {
 				echo "------------>Unit Tests<------------"
-				sh 'gradle --b ./build.gradle'
+				sh 'gradle --b ./build.gradle test'
 
 			}
 		
@@ -50,11 +50,11 @@ pipeline {
 				echo "STATIC CODE ANALYSIS"
 				
 				withSonarQubeEnv('Sonar') {
-					sh "${tool name: 'SonarScanner',
-					type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+					sh "${tool name: 'SonarScanner',type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
 				
 				}
 			}
+		
 		}
 		
 		stage('Build') {
@@ -84,7 +84,7 @@ pipeline {
 		
 		failure {
 			echo 'This will run only if failed'
-			mail (to: 'valentin.quintero@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
+			mail (to: 'maria.molina@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
 
 		}
 		
