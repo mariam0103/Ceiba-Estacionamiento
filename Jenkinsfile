@@ -24,7 +24,7 @@ pipeline {
 				doGenerateSubmoduleConfigurations: false, extensions: [], gitTool:
 				'Git_Centos', submoduleCfg: [], userRemoteConfigs: [[credentialsId:
 				'GitHub_vquintec', url:
-				'https://github.com/vquintec/Ceiba-Estacionamiento']]])
+				'https://github.com/mariam0103/Ceiba-Estacionamiento']]])
 			}
 		
 		}
