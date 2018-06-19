@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.CeibaEstacionamiento.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-06-18T21:51:19" hostname="MARIA-MOLINA" time="0.002">
+<testsuite name="com.ceiba.CeibaEstacionamiento.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-06-19T15:06:35" hostname="MARIA-MOLINA" time="0.001">
   <properties/>
-  <testcase name="sum" classname="com.ceiba.CeibaEstacionamiento.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" time="0.002"/>
+  <testcase name="sum" classname="com.ceiba.CeibaEstacionamiento.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
