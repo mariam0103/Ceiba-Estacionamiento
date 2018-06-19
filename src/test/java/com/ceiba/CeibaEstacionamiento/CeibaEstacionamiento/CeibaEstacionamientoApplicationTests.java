@@ -14,5 +14,4 @@ public class CeibaEstacionamientoApplicationTests {
 		assertTrue(true);
 	}
 	
-
 }
