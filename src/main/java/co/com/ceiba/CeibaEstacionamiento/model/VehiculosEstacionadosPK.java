@@ -12,7 +12,7 @@ public class VehiculosEstacionadosPK implements Serializable{
 	private static final long serialVersionUID = -1617556012988679244L;
 
 	protected Integer idestacionamiento;
-	 protected String idplaca;
+	protected String idplaca;
 
 	    public VehiculosEstacionadosPK() {}
 	    
