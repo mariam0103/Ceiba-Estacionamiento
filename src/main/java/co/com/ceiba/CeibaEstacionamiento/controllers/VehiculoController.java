@@ -20,9 +20,9 @@ import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 @RequestMapping(value = "/")
 public class VehiculoController {
 	
-	 public static final String VEHICULO = "/vehiculo";
+	 	public static final String VEHICULO = "/vehiculo";
 	 
-	 @Autowired
+	 	@Autowired
 	    private IVehiculoBusiness vehiculoBusiness; 
 	    
 	    @GetMapping(VEHICULO)

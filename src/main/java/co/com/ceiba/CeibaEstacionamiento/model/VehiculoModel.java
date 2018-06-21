@@ -54,30 +54,4 @@ public class VehiculoModel {
 			this.idtipo = idtipo;
 		}
 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((idplaca == null) ? 0 : idplaca.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			VehiculoModel other = (VehiculoModel) obj;
-			if (idplaca == null) {
-				if (other.idplaca != null)
-					return false;
-			} else if (!idplaca.equals(other.idplaca))
-				return false;
-			return true;
-		}
-	    
-	    
 }

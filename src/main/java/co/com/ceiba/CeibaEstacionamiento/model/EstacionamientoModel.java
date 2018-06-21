@@ -70,31 +70,5 @@ public class EstacionamientoModel {
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idestacionamiento == null) ? 0 : idestacionamiento.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EstacionamientoModel other = (EstacionamientoModel) obj;
-		if (idestacionamiento == null) {
-			if (other.idestacionamiento != null)
-				return false;
-		} else if (!idestacionamiento.equals(other.idestacionamiento))
-			return false;
-		return true;
-	}
-    
-    
+  
 }
