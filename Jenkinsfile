@@ -40,7 +40,7 @@ pipeline {
 			steps {
 				echo "------------>Unit Tests<------------"
 				sh 'gradle test'
-				junit '**/build/test-results/test/*.xml'
+				junit '**/jacoco/test-results/*.xml'
 			}
 		
 		}
