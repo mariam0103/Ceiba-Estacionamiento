@@ -11,8 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CeibaEstacionamientoApplicationTests {
 
 	@Test
-	public void sum() {
-		assertTrue(true);
+	public void contextLoads() {
 	}
 	
 }
