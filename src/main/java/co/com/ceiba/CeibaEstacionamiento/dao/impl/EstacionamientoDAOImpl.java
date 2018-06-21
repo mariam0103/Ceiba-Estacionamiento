@@ -25,7 +25,7 @@ public class EstacionamientoDAOImpl implements IEstacionamientoDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EstacionamientoModel> listado() {
-		Query query =  entityManager.createQuery("SELECT e FROM tbl_estacionamiento e");
+		Query query =  entityManager.createQuery("SELECT e FROM EstacionamientoModel e");
 		List<EstacionamientoModel> resultList = query.getResultList();
 		return resultList;
 	}

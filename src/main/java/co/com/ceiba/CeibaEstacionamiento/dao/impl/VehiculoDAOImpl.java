@@ -26,7 +26,7 @@ public class VehiculoDAOImpl implements IVehiculoDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<VehiculoModel> listado() {
-		Query query =  entityManager.createQuery("SELECT v FROM tbl_vehiculos v");
+		Query query =  entityManager.createQuery("SELECT v FROM VehiculoModel v");
 		List<VehiculoModel> resultList = query.getResultList();
 		return resultList;
 	}
@@ -43,11 +43,11 @@ public class VehiculoDAOImpl implements IVehiculoDAO{
 	}
 
 	@Override
-	public void actualizarVehiculo(VehiculoModel Vehiculo) {
-		VehiculoModel vehiculo = getVehiculoById(Vehiculo.getIdplaca());
-		vehiculo.setIdplaca(Vehiculo.getIdplaca());
-		vehiculo.setCilindraje(vehiculo.getCilindraje());
-		vehiculo.setIdtipo(vehiculo.getIdtipo());
+	public void actualizarVehiculo(VehiculoModel vehiculoParam) {
+		VehiculoModel vehiculo = getVehiculoById(vehiculoParam.getIdplaca());
+		vehiculo.setIdplaca(vehiculoParam.getIdplaca());
+		vehiculo.setCilindraje(vehiculoParam.getCilindraje());
+		vehiculo.setIdtipo(vehiculoParam.getIdtipo());
         entityManager.flush();
 	}
 
