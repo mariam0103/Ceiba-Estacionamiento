@@ -1,5 +1,5 @@
 ## YAML Template.
 ---
 server:
-    port: 9021
-    contextPath: /estacionamiento
+    port: 9029
+    servlet.path: /estacionamiento

@@ -20,7 +20,7 @@ public class TipoVehiculoDAOImpl implements ITipoVehiculoDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipoVehiculoModel> listado() {
-		Query query =  entityManager.createQuery("SELECT t FROM tbl_tipo_vehiculo t");
+		Query query =  entityManager.createQuery("SELECT idtipo,tipo FROM TipoVehiculoModel");
 		List<TipoVehiculoModel> resultList = query.getResultList();
 		return resultList;
 	}
