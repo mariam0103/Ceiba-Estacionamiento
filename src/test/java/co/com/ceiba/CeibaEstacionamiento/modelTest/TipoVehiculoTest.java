@@ -3,9 +3,11 @@ package co.com.ceiba.CeibaEstacionamiento.modelTest;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import co.com.ceiba.CeibaEstacionamiento.model.TipoVehiculoModel;
 
+@SpringBootTest
 public class TipoVehiculoTest {
 	
 	@Test
