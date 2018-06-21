@@ -32,7 +32,7 @@ pipeline {
 		stage('Unit Tests') {
 			steps {
 				echo "------------>Unit Tests<------------"
-				sh 'gradle --b ./build.gradle test'
+				junit '**/build/test-results/test/*.xml'
 
 			}
 		
@@ -59,7 +59,6 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo "------------>Build<------------"
-				//Construir sin tarea test que se ejecutó previamente
 				sh 'gradle --b ./build.gradle build -x test'
 
 			}
