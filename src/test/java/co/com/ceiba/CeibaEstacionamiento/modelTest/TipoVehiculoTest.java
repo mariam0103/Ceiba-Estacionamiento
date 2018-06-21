@@ -11,8 +11,9 @@ public class TipoVehiculoTest {
 	@Test
 	public void TipoVehiculoModel() {
 		TipoVehiculoModel tipoVehiculo = TipoVehiculoBuilder.anTipoVehiculo().withTipo("CARRO").withIdtipo(1).build();
+		
 		assertEquals("CARRO", tipoVehiculo.getTipo());
 		assertEquals("1", tipoVehiculo.getIdtipo().toString());
     }
-		
+	
 }

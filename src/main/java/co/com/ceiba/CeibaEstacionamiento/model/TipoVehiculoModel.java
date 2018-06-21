@@ -27,7 +27,7 @@ public class TipoVehiculoModel {
     	this.idtipo=idtipo;
     	this.tipo=tipo;
     }
-
+ 
 	public Integer getIdtipo() {
 		return idtipo;
 	}
