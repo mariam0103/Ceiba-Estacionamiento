@@ -23,10 +23,17 @@ pipeline {
 				checkout([$class: 'GitSCM', branches: [[name: '*/master']],
 				doGenerateSubmoduleConfigurations: false, extensions: [], gitTool:
 				'Git_Centos', submoduleCfg: [], userRemoteConfigs: [[credentialsId:
-				'GitHub_vquintec', url:
+				'GitHub_mariam0103', url:
 				'https://github.com/mariam0103/Ceiba-Estacionamiento']]])
 			}
 		
+		}
+		
+		stage('Compile') {
+			steps{
+				echo "------------>Unit Tests<------------"
+				sh 'gradle --b ./build.gradle compileJava'
+			}
 		}
 		
 		stage('Unit Tests') {
