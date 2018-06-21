@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VehiculoDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Ceiba-Estacionamiento</a> &gt; <a href="index.source.html" class="el_package">co.com.ceiba.CeibaEstacionamiento.dao.impl</a> &gt; <span class="el_source">VehiculoDAOImpl.java</span></div><h1>VehiculoDAOImpl.java</h1><pre class="source lang-java linenums">package co.com.ceiba.CeibaEstacionamiento.dao.impl;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+import co.com.ceiba.CeibaEstacionamiento.dao.IVehiculoDAO;
+import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
+
+@Repository
+@Transactional
+<span class="nc" id="L16">public class VehiculoDAOImpl implements IVehiculoDAO{</span>
+	
+	@PersistenceContext	
+    private EntityManager entityManager;
+	
+	@Override
+	public VehiculoModel getVehiculoById(String placa) {
+<span class="nc" id="L23">		return entityManager.find(VehiculoModel.class, placa);</span>
+	}
+	
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public List&lt;VehiculoModel&gt; listado() {
+<span class="nc" id="L29">		Query query =  entityManager.createQuery(&quot;SELECT v FROM VehiculoModel v&quot;);</span>
+<span class="nc" id="L30">		List&lt;VehiculoModel&gt; resultList = query.getResultList();</span>
+<span class="nc" id="L31">		return resultList;</span>
+	}
+
+	@Override
+	public void crearVehiculo(VehiculoModel vehiculo) {
+<span class="nc" id="L36">		entityManager.persist(vehiculo);</span>
+<span class="nc" id="L37">	}</span>
+
+	@Override
+	public void eliminarVehiculo(VehiculoModel vehiculo) {
+<span class="nc" id="L41">		entityManager.remove(getVehiculoById(vehiculo.getIdplaca()));</span>
+		
+<span class="nc" id="L43">	}</span>
+
+	@Override
+	public void actualizarVehiculo(VehiculoModel vehiculoParam) {
+<span class="nc" id="L47">		VehiculoModel vehiculo = getVehiculoById(vehiculoParam.getIdplaca());</span>
+<span class="nc" id="L48">		vehiculo.setIdplaca(vehiculoParam.getIdplaca());</span>
+<span class="nc" id="L49">		vehiculo.setCilindraje(vehiculoParam.getCilindraje());</span>
+<span class="nc" id="L50">		vehiculo.setIdtipo(vehiculoParam.getIdtipo());</span>
+<span class="nc" id="L51">        entityManager.flush();</span>
+<span class="nc" id="L52">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

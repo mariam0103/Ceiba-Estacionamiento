@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VehiculoModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Ceiba-Estacionamiento</a> &gt; <a href="index.source.html" class="el_package">co.com.ceiba.CeibaEstacionamiento.model</a> &gt; <span class="el_source">VehiculoModel.java</span></div><h1>VehiculoModel.java</h1><pre class="source lang-java linenums">package co.com.ceiba.CeibaEstacionamiento.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = &quot;tbl_vehiculos&quot;)
+public class VehiculoModel {
+	    @Id
+	    @Column(name=&quot;ID_PLACA&quot;)
+	    private String idplaca;
+	    
+	    @Column(name=&quot;CILINDRAJE&quot;)
+	    private Integer cilindraje;
+	    
+	    @NotNull
+	    @Column(name=&quot;ID_TIPO&quot;)
+	    private Integer idtipo;
+	    
+	    
+<span class="nc" id="L24">	    public VehiculoModel(String idplaca,Integer cilindraje , Integer idtipo){</span>
+<span class="nc" id="L25">	    	this.idplaca=idplaca;</span>
+<span class="nc" id="L26">	    	this.cilindraje=cilindraje;</span>
+<span class="nc" id="L27">	    	this.idtipo=idtipo;</span>
+<span class="nc" id="L28">	    }</span>
+	    
+<span class="nc" id="L30">	    public VehiculoModel() {</span>
+<span class="nc" id="L31">	    }</span>
+
+		public String getIdplaca() {
+<span class="nc" id="L34">			return idplaca;</span>
+		}
+
+		public void setIdplaca(String idplaca) {
+<span class="nc" id="L38">			this.idplaca = idplaca;</span>
+<span class="nc" id="L39">		}</span>
+
+		public Integer getCilindraje() {
+<span class="nc" id="L42">			return cilindraje;</span>
+		}
+
+		public void setCilindraje(Integer cilindraje) {
+<span class="nc" id="L46">			this.cilindraje = cilindraje;</span>
+<span class="nc" id="L47">		}</span>
+
+		public Integer getIdtipo() {
+<span class="nc" id="L50">			return idtipo;</span>
+		}
+
+		public void setIdtipo(Integer idtipo) {
+<span class="nc" id="L54">			this.idtipo = idtipo;</span>
+<span class="nc" id="L55">		}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

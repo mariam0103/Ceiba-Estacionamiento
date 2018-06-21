@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EstacionamientoModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Ceiba-Estacionamiento</a> &gt; <a href="index.source.html" class="el_package">co.com.ceiba.CeibaEstacionamiento.model</a> &gt; <span class="el_source">EstacionamientoModel.java</span></div><h1>EstacionamientoModel.java</h1><pre class="source lang-java linenums">package co.com.ceiba.CeibaEstacionamiento.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = &quot;tbl_estacionamiento&quot;)
+public class EstacionamientoModel {
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name=&quot;ID_ESTACIONAMIENTO&quot;)
+    private Integer idestacionamiento;
+    
+	@NotNull
+    @Column(name=&quot;FECHA_INGRESO&quot;)
+    private Date fechaingreso;
+    
+    @Column(name=&quot;FECHA_SALIDA&quot;)
+    private Date fechasalida;
+    
+    @Column(name=&quot;PRECIO&quot;)
+    private Double precio;
+    
+    
+<span class="nc" id="L32">    public EstacionamientoModel(Integer idestacionamiento,Date fechaingreso ,Date fechasalida ,Double precio){</span>
+<span class="nc" id="L33">    	this.idestacionamiento=idestacionamiento;</span>
+<span class="nc" id="L34">    	this.fechaingreso=fechaingreso;</span>
+<span class="nc" id="L35">    	this.fechasalida=fechasalida;</span>
+<span class="nc" id="L36">    	this.precio=precio;</span>
+<span class="nc" id="L37">    }</span>
+    
+<span class="nc" id="L39">    public EstacionamientoModel() {</span>
+<span class="nc" id="L40">    }</span>
+
+	public Integer getIdestacionamiento() {
+<span class="nc" id="L43">		return idestacionamiento;</span>
+	}
+
+	public void setIdestacionamiento(Integer idestacionamiento) {
+<span class="nc" id="L47">		this.idestacionamiento = idestacionamiento;</span>
+<span class="nc" id="L48">	}</span>
+
+	public Date getFechaingreso() {
+<span class="nc" id="L51">		return fechaingreso;</span>
+	}
+
+	public void setFechaingreso(Date fechaingreso) {
+<span class="nc" id="L55">		this.fechaingreso = fechaingreso;</span>
+<span class="nc" id="L56">	}</span>
+
+	public Date getFechasalida() {
+<span class="nc" id="L59">		return fechasalida;</span>
+	}
+
+	public void setFechasalida(Date fechasalida) {
+<span class="nc" id="L63">		this.fechasalida = fechasalida;</span>
+<span class="nc" id="L64">	}</span>
+
+	public Double getPrecio() {
+<span class="nc" id="L67">		return precio;</span>
+	}
+
+	public void setPrecio(Double precio) {
+<span class="nc" id="L71">		this.precio = precio;</span>
+<span class="nc" id="L72">	}</span>
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
