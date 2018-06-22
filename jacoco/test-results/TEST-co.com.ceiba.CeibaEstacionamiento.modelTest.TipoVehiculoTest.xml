@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.com.ceiba.CeibaEstacionamiento.modelTest.TipoVehiculoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-06-22T14:41:17" hostname="MARIA-MOLINA" time="0.0">
-  <properties/>
-  <testcase name="TipoVehiculoModel" classname="co.com.ceiba.CeibaEstacionamiento.modelTest.TipoVehiculoTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
