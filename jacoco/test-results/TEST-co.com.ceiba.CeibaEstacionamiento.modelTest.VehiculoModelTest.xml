@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.com.ceiba.CeibaEstacionamiento.modelTest.VehiculoModelTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-06-22T14:17:04" hostname="MARIA-MOLINA" time="0.002">
+<testsuite name="co.com.ceiba.CeibaEstacionamiento.modelTest.VehiculoModelTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-06-22T14:31:20" hostname="MARIA-MOLINA" time="0.001">
   <properties/>
-  <testcase name="VehiculoTestModel" classname="co.com.ceiba.CeibaEstacionamiento.modelTest.VehiculoModelTest" time="0.002"/>
+  <testcase name="VehiculoTestModel" classname="co.com.ceiba.CeibaEstacionamiento.modelTest.VehiculoModelTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
