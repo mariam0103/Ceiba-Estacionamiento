@@ -10,17 +10,9 @@ public class TipoVehiculoTest {
 	
 	@Test
 	public void TipoVehiculoModel() {
-		TipoVehiculoModel tipoVehiculo = TipoVehiculoBuilder.anTipoVehiculo().withTipo("CARRO").withIdtipo(1).build();
+		TipoVehiculoModel tipoVehiculo = new TipoVehiculoBuilder().build();
 		assertEquals("CARRO", tipoVehiculo.getTipo());
 		assertEquals("1", tipoVehiculo.getIdtipo().toString());
     }
-	
-	@Test
-	public void TipoVehiculoModel2() {
-		TipoVehiculoModel tipoVehiculo = new TipoVehiculoModel(3,"CARRO");
-		assertEquals("CARRO", tipoVehiculo.getTipo());
-		assertEquals("3", tipoVehiculo.getIdtipo().toString());
-    }
-	
-	
+		
 }

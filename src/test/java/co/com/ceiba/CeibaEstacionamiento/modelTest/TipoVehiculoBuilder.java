@@ -22,11 +22,7 @@ public class TipoVehiculoBuilder {
     }
     
     public TipoVehiculoModel build(){
-        return new TipoVehiculoModel(idtipo, tipo);
+        return new TipoVehiculoModel(this.idtipo, this.tipo);
     }
-    
-    public static TipoVehiculoBuilder anTipoVehiculo(){
-        return new TipoVehiculoBuilder();
-    }
-    
+  
 }
