@@ -51,4 +51,34 @@ public class VehiculoDAOImpl implements IVehiculoDAO{
         entityManager.flush();
 	}
 
+	@Override
+	public Integer contarCarros(VehiculoModel vehiculo) {
+		Integer result = 20;
+		if(vehiculo.getIdtipo()!=null) {
+			Query query =  entityManager.createQuery("SELECT \r\n" + 
+					"			COUNT(DISTINCT ve.ID_PLACA)\r\n" + 
+					"			FROM EstacionamientoModel e\r\n" + 
+					"			INNER JOIN VehiculosEstacionadosModel ve ON ve.ID_ESTACIONAMIENTO = e.ID_ESTACIONAMIENTO\r\n" + 
+					"			INNER JOIN VehiculoModel v ON v.ID_PLACA = ve.ID_PLACA\r\n" + 
+					"			WHERE v.ID_TIPO = 1 AND e.FECHA_SALIDA IS NULL AND e.PRECIO IS NULL");
+			result = query.getFirstResult();
+		}
+		return result;
+	}
+
+	@Override
+	public Integer contarMotos(VehiculoModel vehiculo) {
+		Integer result = 10;
+		if(vehiculo.getIdtipo()!=null) {
+			Query query =  entityManager.createQuery("SELECT \r\n" + 
+					"			COUNT(DISTINCT ve.ID_PLACA)\r\n" + 
+					"			FROM EstacionamientoModel e\r\n" + 
+					"			INNER JOIN VehiculosEstacionadosModel ve ON ve.ID_ESTACIONAMIENTO = e.ID_ESTACIONAMIENTO\r\n" + 
+					"			INNER JOIN VehiculoModel v ON v.ID_PLACA = ve.ID_PLACA\r\n" + 
+					"			WHERE v.ID_TIPO = 2 AND e.FECHA_SALIDA IS NULL AND e.PRECIO IS NULL");
+			result = query.getFirstResult();
+		}
+		return result;
+	}
+
 }

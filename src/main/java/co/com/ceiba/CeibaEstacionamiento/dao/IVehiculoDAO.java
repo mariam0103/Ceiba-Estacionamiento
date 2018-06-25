@@ -10,4 +10,6 @@ public interface IVehiculoDAO {
 	    void crearVehiculo(VehiculoModel vehiculo);
 	    void eliminarVehiculo(VehiculoModel vehiculo);
 	    void actualizarVehiculo(VehiculoModel vehiculo);
+	    Integer contarCarros(VehiculoModel vehiculo);
+	    Integer contarMotos(VehiculoModel vehiculo);
 }

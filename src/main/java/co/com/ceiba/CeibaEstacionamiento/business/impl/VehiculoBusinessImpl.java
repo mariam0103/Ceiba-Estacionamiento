@@ -39,4 +39,14 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		vehiculoDAO.actualizarVehiculo(vehiculo);
 	}
 
+	@Override
+	public Integer contarCarros(VehiculoModel vehiculo) {
+		return vehiculoDAO.contarCarros(vehiculo);
+	}
+
+	@Override
+	public Integer contarMotos(VehiculoModel vehiculo) {
+		return vehiculoDAO.contarMotos(vehiculo);
+	}
+
 }
