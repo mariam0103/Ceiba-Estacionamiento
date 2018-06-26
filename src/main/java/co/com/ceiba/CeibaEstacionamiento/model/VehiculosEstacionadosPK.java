@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
@@ -15,7 +14,7 @@ public class VehiculosEstacionadosPK implements Serializable{
 	private static final long serialVersionUID = -1617556012988679244L;
 	
 	@NotNull
-    @Column(name="ID_ESTACIONAMIENTO")
+    @Column(name="ID_ESTACIONAMIENTO")	
 	protected Integer idestacionamiento;
 	
 	@NotNull

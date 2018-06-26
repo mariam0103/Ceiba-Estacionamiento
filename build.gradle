@@ -30,6 +30,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.hibernate:hibernate-core:5.2.9.Final')
 	runtime('mysql:mysql-connector-java')
+	compile('org.json:json:20171018')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

@@ -1,5 +1,6 @@
 package co.com.ceiba.CeibaEstacionamiento.business.impl;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,16 @@ public class VehiculoEstacionadoBusinessImpl implements IVehiculoEstacionadoBusi
 	@Override
 	public void crearvehiculoEstacionado(VehiculosEstacionadosModel vehiculoEstacionado) {
 		vehiculosEstacionadosDAO.crearvehiculoEstacionado(vehiculoEstacionado);
+	}
+
+	@Override
+	public JSONArray listaCarrosEstacionados() {
+		return vehiculosEstacionadosDAO.listaCarrosEstacionados();
+	}
+
+	@Override
+	public JSONArray listaMotosEstacionadas() {
+		return vehiculosEstacionadosDAO.listaMotosEstacionadas();
 	}
 
 }

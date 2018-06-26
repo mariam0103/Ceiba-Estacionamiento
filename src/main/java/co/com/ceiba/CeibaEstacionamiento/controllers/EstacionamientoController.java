@@ -45,4 +45,5 @@ public class EstacionamientoController {
     	estacionamientoBusiness.actualizarEstacionamiento(estacionamiento);
         return "El registro fue actualizado exitosamente";
     }
+    
 }
