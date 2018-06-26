@@ -1,36 +1,31 @@
 package co.com.ceiba.CeibaEstacionamiento.model;
 
-import java.io.Serializable;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_vehiculos_estacionados")
-public class VehiculosEstacionadosModel implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3421796868741474508L;
+public class VehiculosEstacionadosModel{
+
 	
 	@EmbeddedId
-	private VehiculosEstacionadosPK id;
+	private VehiculosEstacionadosPK vehiculosEstacionadosPK;
 
     
-    public VehiculosEstacionadosModel(VehiculosEstacionadosPK id) {
-    	this.id=id;
+    public VehiculosEstacionadosModel(VehiculosEstacionadosPK vehiculosEstacionadosPK) {
+    	this.vehiculosEstacionadosPK=vehiculosEstacionadosPK;
     }
     
     public VehiculosEstacionadosModel() {
     }
 
 	public VehiculosEstacionadosPK getId() {
-		return id;
+		return vehiculosEstacionadosPK;
 	}
 
 	public void setId(VehiculosEstacionadosPK id) {
-		this.id = id;
+		this.vehiculosEstacionadosPK = id;
 	}
 
 }

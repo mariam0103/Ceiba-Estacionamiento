@@ -32,8 +32,8 @@ public class VehiculoController {
 	    
 	    @PostMapping(VEHICULO)
 	    public String crearVehiculo(@RequestBody VehiculoModel vehiculo, HttpServletResponse resp){
-	    	vehiculoBusiness.crearVehiculo(vehiculo);
-	        return "El vehiculo fue creado exitosamente";
+	    	String guardar = vehiculoBusiness.crearVehiculo(vehiculo);
+	    	return guardar;
 	    }
 	    
 	    @DeleteMapping(VEHICULO)
@@ -47,5 +47,16 @@ public class VehiculoController {
 	    	vehiculoBusiness.actualizarVehiculo(vehiculo);
 	        return "El vehiculo fue actualizado exitosamente";
 	    }
+	    
+	    @GetMapping(VEHICULO+"/contarCarros")
+	    public Integer contarCarros(HttpServletResponse resp){
+	        return vehiculoBusiness.contarCarros();
+	    }
+	    
+	    @GetMapping(VEHICULO+"/contarMotos")
+	    public Integer contarMotos(HttpServletResponse resp){
+	        return vehiculoBusiness.contarMotos();
+	    }
+	    
 	    
 }

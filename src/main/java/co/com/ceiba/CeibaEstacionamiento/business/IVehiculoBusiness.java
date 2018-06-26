@@ -6,9 +6,9 @@ import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 public interface IVehiculoBusiness {
 	VehiculoModel getVehiculoById(String placa);
     List<VehiculoModel> listado();
-    void crearVehiculo(VehiculoModel vehiculo);
-    void eliminarVehiculo(VehiculoModel vehiculo);
-    void actualizarVehiculo(VehiculoModel vehiculo);
-    Integer contarCarros(VehiculoModel vehiculo);
-    Integer contarMotos(VehiculoModel vehiculo);
+    String crearVehiculo(VehiculoModel vehiculo);
+    String eliminarVehiculo(VehiculoModel vehiculo);
+    String actualizarVehiculo(VehiculoModel vehiculo);
+    Integer contarCarros();
+    Integer contarMotos();
 }
