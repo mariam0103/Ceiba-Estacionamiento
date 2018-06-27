@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import co.com.ceiba.CeibaEstacionamiento.business.IVehiculoBusiness;
 import co.com.ceiba.CeibaEstacionamiento.dao.IVehiculoDAO;
+import co.com.ceiba.CeibaEstacionamiento.exception.CeibaException;
 import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 
 @Service
@@ -26,41 +27,25 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 	}
 
 	@Override
-	public String crearVehiculo(VehiculoModel vehiculo) {
-		String resultado = "";
+	public void crearVehiculo(VehiculoModel vehiculo) {
 		try {
-			String validaciones = validaciones(vehiculo);
-			if (validaciones != null && validaciones.equals("")) {
-				Boolean espacio = validacionEspacio(vehiculo.getIdtipo());
-				String permitirIngreso = permitirIngreso(vehiculo.getIdplaca());
-				if (espacio) {
-					if(permitirIngreso.equals("")) {
-						vehiculoDAO.crearVehiculo(vehiculo);
-					}else{
-						resultado = permitirIngreso;
-					}
-				} else {
-					resultado = "El estacionamiento se encuentra completamente ocupado";
-				}
-			} else {
-				resultado = validaciones;
-			}
+			validaciones(vehiculo);
+			validacionEspacio(vehiculo.getIdtipo());
+			permitirIngreso(vehiculo.getIdplaca());
+			guardarVehiculo(vehiculo);
 		} catch (Exception e) {
-			resultado = "Ha ocurrido un error inesperado";
+			throw new CeibaException("Ha ocurrido un error inesperado");
 		}
-		return resultado;
 	}
 
 	@Override
-	public String eliminarVehiculo(VehiculoModel vehiculo) {
+	public void eliminarVehiculo(VehiculoModel vehiculo) {
 		vehiculoDAO.eliminarVehiculo(vehiculo);
-		return "";
 	}
 
 	@Override
-	public String actualizarVehiculo(VehiculoModel vehiculo) {
+	public void actualizarVehiculo(VehiculoModel vehiculo) {
 		vehiculoDAO.actualizarVehiculo(vehiculo);
-		return "";
 	}
 
 	@Override
@@ -73,21 +58,19 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		return vehiculoDAO.contarMotos();
 	}
 	
-	public String validaciones(VehiculoModel vehiculo) {
-		String resultado = "";
+	public void validaciones(VehiculoModel vehiculo) {
 		if(vehiculo.getCilindraje()==null || vehiculo.getCilindraje() == 0 ){
-			resultado="El cilindraje es obligatorio";
+			throw new CeibaException("El cilindraje es obligatorio");
 		}
 		if(vehiculo.getIdplaca() ==null || vehiculo.getIdplaca().isEmpty()){
-			resultado = "La placa es obligatoria";
+			throw new CeibaException("La placa es obligatoria");
 		}
 		if(vehiculo.getIdtipo()==null || vehiculo.getIdtipo()==0){
-			resultado = "El tipo de vehiculo es obligatorio";
+			throw new CeibaException("El tipo de vehiculo es obligatorio");
 		}
-		return resultado;
 	}
 	
-	public Boolean validacionEspacio(Integer idtipo) {
+	public void validacionEspacio(Integer idtipo) {
 		Boolean espacio = true;
 		if (idtipo == 1 && contarCarros() >= 20) {
 			espacio = false;
@@ -95,7 +78,10 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		if (idtipo == 2 && contarMotos() >= 10) {
 			espacio = false;
 		}
-		return espacio;
+		
+		if(!espacio) {
+			throw new CeibaException("El estacionamiento se encuentra completamente ocupado");
+		}
 	}
 	
 	public Boolean empiezaConA(String placa) {
@@ -109,16 +95,27 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		return letraA;
 	}
 	
-	public String permitirIngreso(String placa) {
-		String resultado = "";
+	public void permitirIngreso(String placa) {
 		Boolean empizaConA = empiezaConA(placa);
 		if(empizaConA){
 			Calendar nowDate = Calendar.getInstance();
 			Integer dia = nowDate.get(Calendar.DAY_OF_WEEK);
 			if(dia==1 || dia==2) {
-				resultado = "Las placa iniciadas con la letra A solo pueden ingresar los dias diferentes a los Lunes y Domingos";
+				throw new CeibaException("Las placa iniciadas con la letra A solo pueden ingresar los dias diferentes a los Lunes y Domingos");
 			}
 		}	
-		return resultado;
+	}
+	
+	public void guardarVehiculo(VehiculoModel vehiculo){
+		VehiculoModel existeVehiculo=getVehiculoById(vehiculo.getIdplaca());
+		try {
+			if(existeVehiculo!=null) {
+				vehiculoDAO.actualizarVehiculo(vehiculo);
+			}else {
+				vehiculoDAO.crearVehiculo(vehiculo);
+			}
+		} catch (Exception e) {
+			throw new CeibaException("Ocurrio un error registrando el vehiculo");
+		}
 	}
 }

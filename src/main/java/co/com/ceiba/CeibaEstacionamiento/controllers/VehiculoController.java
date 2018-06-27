@@ -32,8 +32,8 @@ public class VehiculoController {
 	    
 	    @PostMapping(VEHICULO)
 	    public String crearVehiculo(@RequestBody VehiculoModel vehiculo, HttpServletResponse resp){
-	    	String guardar = vehiculoBusiness.crearVehiculo(vehiculo);
-	    	return guardar;
+	    	vehiculoBusiness.crearVehiculo(vehiculo);
+	    	return "El vehoculo se registro existosamente!";
 	    }
 	    
 	    @DeleteMapping(VEHICULO)

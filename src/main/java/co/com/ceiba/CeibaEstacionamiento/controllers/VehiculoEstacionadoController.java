@@ -2,7 +2,6 @@ package co.com.ceiba.CeibaEstacionamiento.controllers;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +26,13 @@ public class VehiculoEstacionadoController {
         return "El registro fue creado exitosamente";
     }
 	
-	 @GetMapping(VEHICULOESTACIONADO +"/listaCarros")
-	    public JSONArray listado(HttpServletResponse resp){
-	    return vehiculoEstacionadoBusiness.listaCarrosEstacionados();
-	 }
+	@GetMapping(VEHICULOESTACIONADO +"/listaCarros")
+	   public String listadoCarrosEstacionados(HttpServletResponse resp){
+	   return vehiculoEstacionadoBusiness.listaCarrosEstacionados().toString();
+	}
 	
+	@GetMapping(VEHICULOESTACIONADO +"/listaMotos")
+	   public String listadoMotosEstacionados(HttpServletResponse resp){
+	   return vehiculoEstacionadoBusiness.listaMotosEstacionadas().toString();
+	}
 }
