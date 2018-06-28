@@ -14,11 +14,11 @@ public class VehiculosEstacionadosPK implements Serializable{
 	private static final long serialVersionUID = -1617556012988679244L;
 	
 	@NotNull
-    @Column(name="ID_ESTACIONAMIENTO")	
+    @Column(name="idestacionamiento")	
 	protected Integer idestacionamiento;
 	
 	@NotNull
-    @Column(name="ID_PLACA")
+    @Column(name="idplaca")
 	protected String idplaca;
 
 	    public VehiculosEstacionadosPK() {}

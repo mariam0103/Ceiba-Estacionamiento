@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import co.com.ceiba.CeibaEstacionamiento.business.IEstacionamientoBusiness;
 import co.com.ceiba.CeibaEstacionamiento.model.EstacionamientoModel;
 
@@ -26,12 +26,6 @@ public class EstacionamientoController {
     @GetMapping(ESTACIONAMIENTO)
     public List<EstacionamientoModel> listado(HttpServletResponse resp){
         return estacionamientoBusiness.listado(); 
-    }
-    
-    @PostMapping(ESTACIONAMIENTO)
-    public String crearEstacionamiento(@RequestBody EstacionamientoModel estacionamiento, HttpServletResponse resp){
-    	estacionamientoBusiness.crearEstacionamiento(estacionamiento);
-        return "El registro fue creado exitosamente";
     }
     
     @DeleteMapping(ESTACIONAMIENTO)

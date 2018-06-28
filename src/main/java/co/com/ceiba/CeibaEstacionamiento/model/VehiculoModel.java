@@ -21,7 +21,7 @@ public class VehiculoModel {
 	    private Integer idtipo;
 	    
 	    
-	    public VehiculoModel(String idplaca,Integer cilindraje , Integer idtipo){
+	    public VehiculoModel(String idplaca, int cilindraje , int idtipo){
 	    	this.idplaca=idplaca;
 	    	this.cilindraje=cilindraje;
 	    	this.idtipo=idtipo;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.apache.log4j.Logger;
 
 import co.com.ceiba.CeibaEstacionamiento.exception.CeibaException;
+import co.com.ceiba.CeibaEstacionamiento.exception.PersistenceException;
 import co.com.ceiba.CeibaEstacionamiento.model.ResponseError;
 
 	@ControllerAdvice
@@ -20,7 +21,14 @@ import co.com.ceiba.CeibaEstacionamiento.model.ResponseError;
 	LOGGER.error("Domain Error Description:", ex);
 	return new ResponseEntity<ResponseError>(response, HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@ExceptionHandler(PersistenceException.class)
+	public ResponseEntity<ResponseError> persistenceExceptionHandler(PersistenceException ex) {
+	ResponseError response = new ResponseError(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+	LOGGER.error("Persistence Error Description:", ex);
+	return new  ResponseEntity<ResponseError>(response, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<ResponseError> generalException(Throwable ex) {
 	ResponseError response = new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(),

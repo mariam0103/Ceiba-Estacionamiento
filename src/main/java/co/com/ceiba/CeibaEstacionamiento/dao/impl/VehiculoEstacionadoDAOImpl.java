@@ -3,6 +3,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import co.com.ceiba.CeibaEstacionamiento.dao.IVehiculosEstacionadosDAO;
+import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 import co.com.ceiba.CeibaEstacionamiento.model.VehiculosEstacionadosModel;
 
 @Repository
@@ -22,7 +24,12 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 	
 	@Override
 	public void crearvehiculoEstacionado(VehiculosEstacionadosModel vehiculoEstacionado) {
-		entityManager.persist(vehiculoEstacionado);
+		try {
+			entityManager.persist(vehiculoEstacionado);
+		} catch (Exception e) {
+			throw new PersistenceException("Ha ocurrido un error guardando vehiculoEstacionado");
+		}
+		
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -45,7 +52,7 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 				array.put(json);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new PersistenceException("Ha ocurrido un error en la consulta listaCarrosEstacionados");
 		}
 		return array;
 	}
@@ -72,9 +79,26 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 				array.put(json);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new PersistenceException("Ha ocurrido un error en la consulta listaMotosEstacionadas");
 		}
 		return array;
+	}
+
+	@Override
+	public Boolean estaElVehiculoEstacionado(VehiculoModel vehiculo) {
+		try {
+			Query query =  entityManager.createQuery("SELECT COUNT(DISTINCT ve.vehiculosEstacionadosPK.idplaca)"
+					+ "FROM EstacionamientoModel e INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento\r\n"
+					+ "INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca\r\n" + 
+					 "WHERE e.fechasalida IS NULL AND e.precio IS NULL AND ve.vehiculosEstacionadosPK.idplaca='"+vehiculo.getIdplaca()+"'");
+			Integer result = Integer.parseInt(query.getSingleResult().toString());
+			if(result!=null && result>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Ha ocurrido un error en la consulta estaElVehiculoEstacionado");
+		}
+		return false;
 	}
 
 }

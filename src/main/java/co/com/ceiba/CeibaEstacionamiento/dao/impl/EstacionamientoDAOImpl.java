@@ -33,6 +33,7 @@ public class EstacionamientoDAOImpl implements IEstacionamientoDAO{
 	@Override
 	public void crearEstacionamiento(EstacionamientoModel estacionamiento) {
 		entityManager.persist(estacionamiento);
+		entityManager.flush();
 	}
 
 	@Override
