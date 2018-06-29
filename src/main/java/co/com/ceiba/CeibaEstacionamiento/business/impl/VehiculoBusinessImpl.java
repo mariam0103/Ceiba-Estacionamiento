@@ -37,7 +37,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 	}
 
 	@Override
-	public void crearVehiculo(VehiculoModel vehiculo) {
+	public VehiculoModel crearVehiculo(VehiculoModel vehiculo) {
 		//Validaciones previas a que se modifique o se guarde el registro del vehiculo
 		validacionesVehiculoModel(vehiculo);
 		validacionEspacioEstacionamiento(vehiculo.getIdtipo());
@@ -50,6 +50,8 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		//Se guarda el registro del vehiculo en el estacionamiento
 		EstacionamientoModel estacionamiento = estacionamientoBusiness.crearEstacionamiento();	
 		vehiculoEstacionadoBusiness.crearvehiculoEstacionado(estacionamiento,vehiculo);
+		
+		return vehiculo;
 	}
 
 	@Override

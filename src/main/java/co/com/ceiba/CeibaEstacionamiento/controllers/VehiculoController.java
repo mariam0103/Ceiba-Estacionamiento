@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import co.com.ceiba.CeibaEstacionamiento.business.IVehiculoBusiness;
 import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
-import co.com.ceiba.CeibaEstacionamiento.modelTest.VehiculoBuilder;
 
 
 @RestController
@@ -37,8 +37,7 @@ public class VehiculoController {
 	    
 	    @PostMapping(VEHICULO)
 	    public @ResponseBody VehiculoModel crearVehiculo(@RequestBody VehiculoModel vehiculo){
-	    	//return vehiculoBusiness.crearVehiculo(vehiculo);
-	    	return new VehiculoBuilder().build();
+	    	return vehiculoBusiness.crearVehiculo(vehiculo);
 	    }
 	    
 	    @DeleteMapping(VEHICULO)
