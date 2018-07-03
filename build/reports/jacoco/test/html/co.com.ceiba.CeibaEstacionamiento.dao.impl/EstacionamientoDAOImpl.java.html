@@ -4,51 +4,59 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
+
 import co.com.ceiba.CeibaEstacionamiento.dao.IEstacionamientoDAO;
 import co.com.ceiba.CeibaEstacionamiento.model.EstacionamientoModel;
+import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 
 @Repository
 @Transactional
-<span class="fc" id="L15">public class EstacionamientoDAOImpl implements IEstacionamientoDAO{</span>
+<span class="nc" id="L19">public class EstacionamientoDAOImpl implements IEstacionamientoDAO{</span>
 	
 	@PersistenceContext	
     private EntityManager entityManager;
 	
 	@Override
 	public EstacionamientoModel getEstacionamientoById(int id) {
-<span class="nc" id="L22">		return entityManager.find(EstacionamientoModel.class, id);</span>
-	}
-	
-	@SuppressWarnings(&quot;unchecked&quot;)
-	@Override
-	public List&lt;EstacionamientoModel&gt; listado() {
-<span class="nc" id="L28">		Query query =  entityManager.createQuery(&quot;SELECT e FROM EstacionamientoModel e&quot;);</span>
-<span class="nc" id="L29">		List&lt;EstacionamientoModel&gt; resultList = query.getResultList();</span>
-<span class="nc" id="L30">		return resultList;</span>
+<span class="nc" id="L26">		return entityManager.find(EstacionamientoModel.class, id);</span>
 	}
 
 	@Override
 	public void crearEstacionamiento(EstacionamientoModel estacionamiento) {
-<span class="nc" id="L35">		entityManager.persist(estacionamiento);</span>
-<span class="nc" id="L36">	}</span>
-
-	@Override
-	public void eliminarEstacionamiento(EstacionamientoModel estacionamiento) {
-<span class="nc" id="L40">		entityManager.remove(getEstacionamientoById(estacionamiento.getIdestacionamiento()));</span>
-<span class="nc" id="L41">	}</span>
+<span class="nc" id="L31">		entityManager.persist(estacionamiento);</span>
+<span class="nc" id="L32">		entityManager.flush();</span>
+<span class="nc" id="L33">	}</span>
 
 	@Override
 	public void actualizarEstacionamiento(EstacionamientoModel estacionamientoParam) {
-<span class="nc" id="L45">		EstacionamientoModel estacionamiento = getEstacionamientoById(estacionamientoParam.getIdestacionamiento());</span>
-<span class="nc" id="L46">		estacionamiento.setIdestacionamiento(estacionamientoParam.getIdestacionamiento());</span>
-<span class="nc" id="L47">		estacionamiento.setFechaingreso(estacionamientoParam.getFechaingreso());</span>
-<span class="nc" id="L48">		estacionamiento.setFechasalida(estacionamientoParam.getFechasalida());</span>
-<span class="nc" id="L49">		estacionamiento.setPrecio(estacionamientoParam.getPrecio());</span>
-<span class="nc" id="L50">        entityManager.flush();</span>
-<span class="nc" id="L51">	}</span>
+<span class="nc" id="L37">		EstacionamientoModel estacionamiento = getEstacionamientoById(estacionamientoParam.getIdestacionamiento());</span>
+<span class="nc" id="L38">		estacionamiento.setIdestacionamiento(estacionamientoParam.getIdestacionamiento());</span>
+<span class="nc" id="L39">		estacionamiento.setFechaingreso(estacionamientoParam.getFechaingreso());</span>
+<span class="nc" id="L40">		estacionamiento.setFechasalida(estacionamientoParam.getFechasalida());</span>
+<span class="nc" id="L41">		estacionamiento.setPrecio(estacionamientoParam.getPrecio());</span>
+<span class="nc" id="L42">        entityManager.flush();</span>
+<span class="nc" id="L43">	}</span>
+	
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public List&lt;EstacionamientoModel&gt; vehiculoEstacionado(VehiculoModel vehiculo) {
+		List&lt;EstacionamientoModel&gt; result;
+		try {
+<span class="nc" id="L50">			Query query =  entityManager.createQuery(&quot;SELECT e FROM EstacionamientoModel e \r\n&quot; + </span>
+					&quot;INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento \r\n&quot; + 
+					&quot;INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca \r\n &quot;+
+<span class="nc" id="L53">					&quot;WHERE e.fechasalida IS NULL AND e.precio IS NULL AND ve.vehiculosEstacionadosPK.idplaca='&quot;+vehiculo.getIdplaca()+&quot;'&quot;);</span>
+<span class="nc" id="L54">			result = query.getResultList();</span>
+<span class="nc" id="L55">		} catch (Exception e) {</span>
+<span class="nc" id="L56">			throw new PersistenceException(&quot;Ha ocurrido un error en la consulta vehiculoEstacionado&quot;);</span>
+<span class="nc" id="L57">		}</span>
+<span class="nc" id="L58">		return result;</span>
+	}
 	
 
 }

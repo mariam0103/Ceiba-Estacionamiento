@@ -1,43 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VehiculoBusinessImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Ceiba-Estacionamiento</a> &gt; <a href="index.source.html" class="el_package">co.com.ceiba.CeibaEstacionamiento.business.impl</a> &gt; <span class="el_source">VehiculoBusinessImpl.java</span></div><h1>VehiculoBusinessImpl.java</h1><pre class="source lang-java linenums">package co.com.ceiba.CeibaEstacionamiento.business.impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import co.com.ceiba.CeibaEstacionamiento.business.IEstacionamientoBusiness;
 import co.com.ceiba.CeibaEstacionamiento.business.IVehiculoBusiness;
+import co.com.ceiba.CeibaEstacionamiento.business.IVehiculoEstacionadoBusiness;
 import co.com.ceiba.CeibaEstacionamiento.dao.IVehiculoDAO;
+import co.com.ceiba.CeibaEstacionamiento.exception.CeibaException;
+import co.com.ceiba.CeibaEstacionamiento.model.EstacionamientoModel;
 import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 
 @Service
-<span class="fc" id="L12">public class VehiculoBusinessImpl implements IVehiculoBusiness{</span>
+<span class="nc" id="L18">public class VehiculoBusinessImpl implements IVehiculoBusiness{</span>
 	
 	@Autowired
 	private IVehiculoDAO vehiculoDAO;
-	 
+	
+	@Autowired
+	private IVehiculoEstacionadoBusiness vehiculoEstacionadoBusiness; 
+	
+	@Autowired	
+    private IEstacionamientoBusiness estacionamientoBusiness; 
+	
 	@Override
 	public VehiculoModel getVehiculoById(String placa) {
-<span class="nc" id="L19">		 return vehiculoDAO.getVehiculoById(placa);</span>
+<span class="nc" id="L31">		 return vehiculoDAO.getVehiculoById(placa);</span>
+	}
+
+
+	@Override
+	public VehiculoModel crearVehiculo(VehiculoModel vehiculo) {
+		//Validaciones previas a que se modifique o se guarde el registro del vehiculo
+<span class="nc" id="L38">		vehiculoEstacionadoBusiness.estaElVehiculoEstacionado(vehiculo);</span>
+<span class="nc" id="L39">		validacionesVehiculoModel(vehiculo);</span>
+<span class="nc" id="L40">		validacionEspacioEstacionamiento(vehiculo.getIdtipo());</span>
+<span class="nc" id="L41">		permitirIngresoVehiculosConPlacaA(vehiculo.getIdplaca());</span>
+		
+		//Se guarda o se modifica el vehiculo
+<span class="nc" id="L44">		guardarVehiculo(vehiculo);</span>
+		
+		//Se guarda el registro del vehiculo en el estacionamiento
+<span class="nc" id="L47">		EstacionamientoModel estacionamiento = estacionamientoBusiness.crearEstacionamiento();	</span>
+<span class="nc" id="L48">		vehiculoEstacionadoBusiness.crearvehiculoEstacionado(estacionamiento,vehiculo);</span>
+		
+<span class="nc" id="L50">		return vehiculo;</span>
 	}
 
 	@Override
-	public List&lt;VehiculoModel&gt; listado() {
-<span class="nc" id="L24">		 return vehiculoDAO.listado();</span>
+	public VehiculoModel actualizarVehiculo(VehiculoModel vehiculo) {
+<span class="nc" id="L55">		List&lt;EstacionamientoModel&gt; vehiculoEstacionado = estacionamientoBusiness.vehiculoEstacionado(vehiculo);</span>
+<span class="nc" id="L56">		EstacionamientoModel estacionamiento = vehiculoEstacionado.get(0);</span>
+<span class="nc" id="L57">		Calendar outDate = Calendar.getInstance();</span>
+<span class="nc" id="L58">		Double precio = vehiculoEstacionadoBusiness.calcularPrecioEstacionamiento(vehiculo, estacionamiento.getFechaingreso(),outDate.getTime());</span>
+<span class="nc" id="L59">		estacionamiento.setPrecio(precio);</span>
+<span class="nc" id="L60">		estacionamiento.setFechasalida(outDate.getTime());</span>
+<span class="nc" id="L61">		estacionamientoBusiness.actualizarEstacionamiento(estacionamiento);</span>
+<span class="nc" id="L62">		return vehiculo;</span>
 	}
 
 	@Override
-	public void crearVehiculo(VehiculoModel vehiculo) {
-<span class="nc" id="L29">		vehiculoDAO.crearVehiculo(vehiculo);</span>
-<span class="nc" id="L30">	}</span>
+	public Integer contarCarros() {
+<span class="nc" id="L67">		return vehiculoDAO.contarCarros();</span>
+	}
 
 	@Override
-	public void eliminarVehiculo(VehiculoModel vehiculo) {
-<span class="nc" id="L34">		vehiculoDAO.eliminarVehiculo(vehiculo);</span>
-<span class="nc" id="L35">	}</span>
-
-	@Override
-	public void actualizarVehiculo(VehiculoModel vehiculo) {
-<span class="nc" id="L39">		vehiculoDAO.actualizarVehiculo(vehiculo);</span>
-<span class="nc" id="L40">	}</span>
-
+	public Integer contarMotos() {
+<span class="nc" id="L72">		return vehiculoDAO.contarMotos();</span>
+	}
+	
+	public void validacionesVehiculoModel(VehiculoModel vehiculo) {
+<span class="nc bnc" id="L76" title="All 4 branches missed.">		if(vehiculo.getIdplaca() ==null || vehiculo.getIdplaca().isEmpty()){</span>
+<span class="nc" id="L77">			throw new CeibaException(&quot;La placa es obligatoria&quot;);</span>
+		}
+<span class="nc bnc" id="L79" title="All 4 branches missed.">		if(vehiculo.getIdtipo()==null || vehiculo.getIdtipo()==0){</span>
+<span class="nc" id="L80">			throw new CeibaException(&quot;El tipo de vehiculo es obligatorio&quot;);</span>
+		}
+<span class="nc bnc" id="L82" title="All 6 branches missed.">		if(vehiculo.getIdtipo()==2 &amp;&amp; (vehiculo.getCilindraje()==null || vehiculo.getCilindraje() == 0)) {</span>
+<span class="nc" id="L83">			throw new CeibaException(&quot;El cilindraje es obligatorio&quot;);</span>
+		}
+<span class="nc" id="L85">	}</span>
+	
+	public void validacionEspacioEstacionamiento(Integer idtipo) {
+<span class="nc" id="L88">		Boolean espacio = true;</span>
+<span class="nc bnc" id="L89" title="All 4 branches missed.">		if (idtipo == 1 &amp;&amp; contarCarros() &gt;= 20) {</span>
+<span class="nc" id="L90">			espacio = false;</span>
+		}
+<span class="nc bnc" id="L92" title="All 4 branches missed.">		if (idtipo == 2 &amp;&amp; contarMotos() &gt;= 10) {</span>
+<span class="nc" id="L93">			espacio = false;</span>
+		}
+<span class="nc bnc" id="L95" title="All 2 branches missed.">		if(!espacio) {</span>
+<span class="nc" id="L96">			throw new CeibaException(&quot;El estacionamiento se encuentra completamente ocupado&quot;);</span>
+		}
+<span class="nc" id="L98">	}</span>
+	
+	public Boolean empiezaConA(String placa) {
+<span class="nc" id="L101">		Boolean letraA = false;</span>
+		try {
+<span class="nc bnc" id="L103" title="All 6 branches missed.">			if(placa !=null &amp;&amp; !placa.isEmpty() &amp;&amp; placa.length()&gt;0) {</span>
+<span class="nc" id="L104">				String primeraLetraPlaca = placa.substring(0,1);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">				if(primeraLetraPlaca.equals(&quot;A&quot;)) {</span>
+<span class="nc" id="L106">					letraA = true;</span>
+				}
+			}
+<span class="nc" id="L109">		} catch (Exception e) {</span>
+<span class="nc" id="L110">			throw new CeibaException(&quot;Ha ocurrido un error evaluando la placa del vehiculo&quot;);</span>
+<span class="nc" id="L111">		}</span>
+		
+<span class="nc" id="L113">		return letraA;</span>
+	}
+	
+	public void permitirIngresoVehiculosConPlacaA(String placa) {
+<span class="nc" id="L117">			Boolean empizaConA = empiezaConA(placa);</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">			if(empizaConA){</span>
+<span class="nc" id="L119">				Calendar nowDate = Calendar.getInstance();</span>
+<span class="nc" id="L120">				Integer dia = nowDate.get(Calendar.DAY_OF_WEEK);</span>
+<span class="nc bnc" id="L121" title="All 4 branches missed.">				if(dia!=1 || dia!=2) {</span>
+<span class="nc" id="L122">					throw new CeibaException(&quot;Las placa iniciadas con la letra A solo pueden ingresar los dias diferentes a los Lunes y Domingos&quot;);</span>
+				}
+			}	
+<span class="nc" id="L125">	}</span>
+	
+	public void guardarVehiculo(VehiculoModel vehiculo){
+<span class="nc" id="L128">		VehiculoModel existeVehiculo=getVehiculoById(vehiculo.getIdplaca());</span>
+		try {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">			if(existeVehiculo!=null) {</span>
+<span class="nc" id="L131">				vehiculoDAO.actualizarVehiculo(vehiculo);</span>
+			}else {
+<span class="nc" id="L133">				vehiculoDAO.crearVehiculo(vehiculo);</span>
+			}
+<span class="nc" id="L135">		} catch (Exception e) {</span>
+<span class="nc" id="L136">			throw new CeibaException(&quot;Ocurrio un error registrando el vehiculo&quot;);</span>
+<span class="nc" id="L137">		}</span>
+<span class="nc" id="L138">	}</span>
+	
+	
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

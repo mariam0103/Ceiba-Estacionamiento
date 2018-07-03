@@ -1,23 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VehiculoEstacionadoDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Ceiba-Estacionamiento</a> &gt; <a href="index.source.html" class="el_package">co.com.ceiba.CeibaEstacionamiento.dao.impl</a> &gt; <span class="el_source">VehiculoEstacionadoDAOImpl.java</span></div><h1>VehiculoEstacionadoDAOImpl.java</h1><pre class="source lang-java linenums">package co.com.ceiba.CeibaEstacionamiento.dao.impl;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
+
 import co.com.ceiba.CeibaEstacionamiento.dao.IVehiculosEstacionadosDAO;
+import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 import co.com.ceiba.CeibaEstacionamiento.model.VehiculosEstacionadosModel;
 
 @Repository
 @Transactional
-<span class="fc" id="L12">public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{</span>
+<span class="nc" id="L20">public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{</span>
 	
 	@PersistenceContext	
     private EntityManager entityManager;
 	
+	public static final String JOIN = &quot;FROM EstacionamientoModel e \r\n&quot; + 
+			&quot;INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento  \r\n&quot; + 
+			&quot;INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca \r\n&quot;;
 	@Override
 	public void crearvehiculoEstacionado(VehiculosEstacionadosModel vehiculoEstacionado) {
-<span class="nc" id="L19">		entityManager.persist(vehiculoEstacionado);</span>
-<span class="nc" id="L20">	}</span>
+		try {
+<span class="nc" id="L31">			entityManager.persist(vehiculoEstacionado);</span>
+<span class="nc" id="L32">		} catch (Exception e) {</span>
+<span class="nc" id="L33">			throw new PersistenceException(&quot;Ha ocurrido un error guardando vehiculoEstacionado&quot;);</span>
+<span class="nc" id="L34">		}</span>
+		
+<span class="nc" id="L36">	}</span>
+	
+	@SuppressWarnings(&quot;rawtypes&quot;)
+	@Override
+	public JSONArray listaCarrosEstacionados() {
+<span class="nc" id="L41">		JSONArray array = new JSONArray();</span>
+		try {
+<span class="nc" id="L43">			Query query =  entityManager.createQuery(&quot;SELECT \r\n&quot; + </span>
+					&quot;			e.fechaingreso,v.idplaca &quot; + JOIN +
+					&quot;			WHERE v.idtipo = 1 AND e.fechasalida IS NULL AND e.precio IS NULL&quot;);
+<span class="nc" id="L46">			List lista = query.getResultList();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">			for(int i=0; i&lt; lista.size(); i++) {</span>
+<span class="nc" id="L48">				JSONObject json = new JSONObject();</span>
+<span class="nc" id="L49">				Object[] object = (Object[]) lista.get(i);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">				json.put(&quot;fechaingreso&quot;, object[0] != null ? object[0].toString() : &quot;&quot;);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">				json.put(&quot;idplaca&quot;, object[1] != null ? object[1].toString() : &quot;&quot;);</span>
+<span class="nc" id="L52">				array.put(json);</span>
+			}
+<span class="nc" id="L54">		} catch (Exception e) {</span>
+<span class="nc" id="L55">			throw new PersistenceException(&quot;Ha ocurrido un error en la consulta listaCarrosEstacionados&quot;);</span>
+<span class="nc" id="L56">		}</span>
+<span class="nc" id="L57">		return array;</span>
+	}
 
+
+	@SuppressWarnings(&quot;rawtypes&quot;)
+	@Override
+	public JSONArray listaMotosEstacionadas() {
+<span class="nc" id="L64">		JSONArray array = new JSONArray();</span>
+		try {
+<span class="nc" id="L66">			Query query =  entityManager.createQuery(&quot;SELECT \r\n&quot; + </span>
+					&quot;			e.fechaingreso,v.idplaca,v.cilindraje &quot; + JOIN +
+					&quot;			WHERE v.idtipo = 2 AND e.fechasalida IS NULL AND e.precio IS NULL&quot;);
+<span class="nc" id="L69">			List lista = query.getResultList();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">			for(int i=0; i&lt; lista.size(); i++) {</span>
+<span class="nc" id="L71">				JSONObject json = new JSONObject();</span>
+<span class="nc" id="L72">				Object[] object = (Object[]) lista.get(i);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">				json.put(&quot;fechaingreso&quot;, object[0] != null ? object[0].toString() : &quot;&quot;);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">				json.put(&quot;idplaca&quot;, object[1] != null ? object[1].toString() : &quot;&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">				json.put(&quot;cilindraje&quot;, object[2] != null ? object[2].toString() : &quot;&quot;);</span>
+<span class="nc" id="L76">				array.put(json);</span>
+			}
+<span class="nc" id="L78">		} catch (Exception e) {</span>
+<span class="nc" id="L79">			throw new PersistenceException(&quot;Ha ocurrido un error en la consulta listaMotosEstacionadas&quot;);</span>
+<span class="nc" id="L80">		}</span>
+<span class="nc" id="L81">		return array;</span>
+	}
+
+	@Override
+	public Boolean estaElVehiculoEstacionado(VehiculoModel vehiculo) {
+		try {
+<span class="nc" id="L87">			Query query =  entityManager.createQuery(&quot;SELECT COUNT(DISTINCT ve.vehiculosEstacionadosPK.idplaca)&quot;+ JOIN +</span>
+<span class="nc" id="L88">					 &quot;WHERE e.fechasalida IS NULL AND e.precio IS NULL AND ve.vehiculosEstacionadosPK.idplaca='&quot;+vehiculo.getIdplaca()+&quot;'&quot;);</span>
+<span class="nc" id="L89">			Integer result = Integer.parseInt(query.getSingleResult().toString());</span>
+<span class="nc bnc" id="L90" title="All 4 branches missed.">			if(result!=null &amp;&amp; result&gt;0) {</span>
+<span class="nc" id="L91">				return true;</span>
+			}
+<span class="nc" id="L93">		} catch (Exception e) {</span>
+<span class="nc" id="L94">			throw new PersistenceException(&quot;Ha ocurrido un error en la consulta estaElVehiculoEstacionado&quot;);</span>
+<span class="nc" id="L95">		}</span>
+<span class="nc" id="L96">		return false;</span>
+	}
+	
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

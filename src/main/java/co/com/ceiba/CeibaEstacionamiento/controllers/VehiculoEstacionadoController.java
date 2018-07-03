@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.CeibaEstacionamiento.business.IVehiculoEstacionadoBusiness;
+import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 
 @RestController
 @RequestMapping(value = "/")
@@ -27,5 +29,10 @@ public class VehiculoEstacionadoController {
 	@GetMapping(VEHICULOESTACIONADO +"/listaMotos")
 	   public String listadoMotosEstacionados(HttpServletResponse resp){
 	   return vehiculoEstacionadoBusiness.listaMotosEstacionadas().toString();
+	}
+	
+	@GetMapping(VEHICULOESTACIONADO +"/listaMotos")
+	   public Double precioEstacionamiento(@RequestBody VehiculoModel vehiculo,HttpServletResponse resp){
+	   return vehiculoEstacionadoBusiness.precioVehiculo(vehiculo);
 	}
 }

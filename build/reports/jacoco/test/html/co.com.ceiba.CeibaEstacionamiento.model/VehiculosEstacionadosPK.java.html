@@ -2,7 +2,9 @@
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class VehiculosEstacionadosPK implements Serializable{
@@ -10,15 +12,69 @@ public class VehiculosEstacionadosPK implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1617556012988679244L;
-
+	
+	@NotNull
+    @Column(name=&quot;idestacionamiento&quot;)	
 	protected Integer idestacionamiento;
+	
+	@NotNull
+    @Column(name=&quot;idplaca&quot;)
 	protected String idplaca;
 
-<span class="nc" id="L17">	    public VehiculosEstacionadosPK() {}</span>
+<span class="nc" id="L24">	    public VehiculosEstacionadosPK() {}</span>
 	    
-<span class="nc" id="L19">	    public VehiculosEstacionadosPK(Integer idestacionamiento, String idplaca) {</span>
-<span class="nc" id="L20">	        this.idestacionamiento = idestacionamiento;</span>
-<span class="nc" id="L21">	        this.idplaca = idplaca;</span>
-<span class="nc" id="L22">	    }</span>
+<span class="nc" id="L26">	    public VehiculosEstacionadosPK(Integer idestacionamiento, String idplaca) {</span>
+<span class="nc" id="L27">	        this.idestacionamiento = idestacionamiento;</span>
+<span class="nc" id="L28">	        this.idplaca = idplaca;</span>
+<span class="nc" id="L29">	    }</span>
+
+		public Integer getIdestacionamiento() {
+<span class="nc" id="L32">			return idestacionamiento;</span>
+		}
+
+		public void setIdestacionamiento(Integer idestacionamiento) {
+<span class="nc" id="L36">			this.idestacionamiento = idestacionamiento;</span>
+<span class="nc" id="L37">		}</span>
+
+		public String getIdplaca() {
+<span class="nc" id="L40">			return idplaca;</span>
+		}
+
+		public void setIdplaca(String idplaca) {
+<span class="nc" id="L44">			this.idplaca = idplaca;</span>
+<span class="nc" id="L45">		}</span>
+
+		@Override
+		public int hashCode() {
+<span class="nc" id="L49">			final int prime = 31;</span>
+<span class="nc" id="L50">			int result = 1;</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">			result = prime * result + ((idestacionamiento == null) ? 0 : idestacionamiento.hashCode());</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">			result = prime * result + ((idplaca == null) ? 0 : idplaca.hashCode());</span>
+<span class="nc" id="L53">			return result;</span>
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">			if (this == obj)</span>
+<span class="nc" id="L59">				return true;</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">			if (obj == null)</span>
+<span class="nc" id="L61">				return false;</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">			if (getClass() != obj.getClass())</span>
+<span class="nc" id="L63">				return false;</span>
+<span class="nc" id="L64">			VehiculosEstacionadosPK other = (VehiculosEstacionadosPK) obj;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">			if (idestacionamiento == null) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">				if (other.idestacionamiento != null)</span>
+<span class="nc" id="L67">					return false;</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">			} else if (!idestacionamiento.equals(other.idestacionamiento))</span>
+<span class="nc" id="L69">				return false;</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">			if (idplaca == null) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">				if (other.idplaca != null)</span>
+<span class="nc" id="L72">					return false;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">			} else if (!idplaca.equals(other.idplaca))</span>
+<span class="nc" id="L74">				return false;</span>
+<span class="nc" id="L75">			return true;</span>
+		}
+	
+		
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

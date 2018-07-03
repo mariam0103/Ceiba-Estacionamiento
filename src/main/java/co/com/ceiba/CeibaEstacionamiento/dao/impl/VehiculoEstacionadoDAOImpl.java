@@ -22,6 +22,9 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 	@PersistenceContext	
     private EntityManager entityManager;
 	
+	public static final String JOIN = "FROM EstacionamientoModel e \r\n" + 
+			"INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento  \r\n" + 
+			"INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca \r\n";
 	@Override
 	public void crearvehiculoEstacionado(VehiculosEstacionadosModel vehiculoEstacionado) {
 		try {
@@ -38,10 +41,7 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 		JSONArray array = new JSONArray();
 		try {
 			Query query =  entityManager.createQuery("SELECT \r\n" + 
-					"			e.fechaingreso,v.idplaca" + 
-					"			FROM EstacionamientoModel e\r\n" + 
-					"			INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento\r\n" + 
-					"			INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca\r\n" + 
+					"			e.fechaingreso,v.idplaca " + JOIN +
 					"			WHERE v.idtipo = 1 AND e.fechasalida IS NULL AND e.precio IS NULL");
 			List lista = query.getResultList();
 			for(int i=0; i< lista.size(); i++) {
@@ -64,10 +64,7 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 		JSONArray array = new JSONArray();
 		try {
 			Query query =  entityManager.createQuery("SELECT \r\n" + 
-					"			e.fechaingreso,v.idplaca,v.cilindraje" + 
-					"			FROM EstacionamientoModel e\r\n" + 
-					"			INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento\r\n" + 
-					"			INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca\r\n" + 
+					"			e.fechaingreso,v.idplaca,v.cilindraje " + JOIN +
 					"			WHERE v.idtipo = 2 AND e.fechasalida IS NULL AND e.precio IS NULL");
 			List lista = query.getResultList();
 			for(int i=0; i< lista.size(); i++) {
@@ -87,9 +84,7 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 	@Override
 	public Boolean estaElVehiculoEstacionado(VehiculoModel vehiculo) {
 		try {
-			Query query =  entityManager.createQuery("SELECT COUNT(DISTINCT ve.vehiculosEstacionadosPK.idplaca)"
-					+ "FROM EstacionamientoModel e INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento\r\n"
-					+ "INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca\r\n" + 
+			Query query =  entityManager.createQuery("SELECT COUNT(DISTINCT ve.vehiculosEstacionadosPK.idplaca)"+ JOIN +
 					 "WHERE e.fechasalida IS NULL AND e.precio IS NULL AND ve.vehiculosEstacionadosPK.idplaca='"+vehiculo.getIdplaca()+"'");
 			Integer result = Integer.parseInt(query.getSingleResult().toString());
 			if(result!=null && result>0) {
@@ -100,5 +95,5 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 		}
 		return false;
 	}
-
+	
 }

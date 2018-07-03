@@ -31,18 +31,14 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		 return vehiculoDAO.getVehiculoById(placa);
 	}
 
-	@Override
-	public List<VehiculoModel> listado() {
-		 return vehiculoDAO.listado();
-	}
 
 	@Override
 	public VehiculoModel crearVehiculo(VehiculoModel vehiculo) {
 		//Validaciones previas a que se modifique o se guarde el registro del vehiculo
+		vehiculoEstacionadoBusiness.estaElVehiculoEstacionado(vehiculo);
 		validacionesVehiculoModel(vehiculo);
 		validacionEspacioEstacionamiento(vehiculo.getIdtipo());
 		permitirIngresoVehiculosConPlacaA(vehiculo.getIdplaca());
-		vehiculoEstacionadoBusiness.estaElVehiculoEstacionado(vehiculo);
 		
 		//Se guarda o se modifica el vehiculo
 		guardarVehiculo(vehiculo);
@@ -55,13 +51,15 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 	}
 
 	@Override
-	public void eliminarVehiculo(VehiculoModel vehiculo) {
-		vehiculoDAO.eliminarVehiculo(vehiculo);
-	}
-
-	@Override
-	public void actualizarVehiculo(VehiculoModel vehiculo) {
-		vehiculoDAO.actualizarVehiculo(vehiculo);
+	public VehiculoModel actualizarVehiculo(VehiculoModel vehiculo) {
+		List<EstacionamientoModel> vehiculoEstacionado = estacionamientoBusiness.vehiculoEstacionado(vehiculo);
+		EstacionamientoModel estacionamiento = vehiculoEstacionado.get(0);
+		Calendar outDate = Calendar.getInstance();
+		Double precio = vehiculoEstacionadoBusiness.calcularPrecioEstacionamiento(vehiculo, estacionamiento.getFechaingreso(),outDate.getTime());
+		estacionamiento.setPrecio(precio);
+		estacionamiento.setFechasalida(outDate.getTime());
+		estacionamientoBusiness.actualizarEstacionamiento(estacionamiento);
+		return vehiculo;
 	}
 
 	@Override
@@ -76,13 +74,13 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 	
 	public void validacionesVehiculoModel(VehiculoModel vehiculo) {
 		if(vehiculo.getIdplaca() ==null || vehiculo.getIdplaca().isEmpty()){
-			throw new CeibaException("El cilindraje es obligatorio");
+			throw new CeibaException("La placa es obligatoria");
 		}
 		if(vehiculo.getIdtipo()==null || vehiculo.getIdtipo()==0){
 			throw new CeibaException("El tipo de vehiculo es obligatorio");
 		}
 		if(vehiculo.getIdtipo()==2 && (vehiculo.getCilindraje()==null || vehiculo.getCilindraje() == 0)) {
-			throw new CeibaException("La placa es obligatoria");
+			throw new CeibaException("El cilindraje es obligatorio");
 		}
 	}
 	
@@ -138,4 +136,6 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 			throw new CeibaException("Ocurrio un error registrando el vehiculo");
 		}
 	}
+	
+	
 }

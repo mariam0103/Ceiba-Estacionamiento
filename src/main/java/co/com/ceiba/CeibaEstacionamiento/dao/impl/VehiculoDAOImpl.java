@@ -1,7 +1,5 @@
 package co.com.ceiba.CeibaEstacionamiento.dao.impl;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,24 +21,10 @@ public class VehiculoDAOImpl implements IVehiculoDAO{
 	public VehiculoModel getVehiculoById(String placa) {
 		return entityManager.find(VehiculoModel.class, placa);
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<VehiculoModel> listado() {
-		Query query =  entityManager.createQuery("SELECT v FROM VehiculoModel v");
-		List<VehiculoModel> resultList = query.getResultList();
-		return resultList;
-	}
 
 	@Override
 	public void crearVehiculo(VehiculoModel vehiculo) {
 		entityManager.persist(vehiculo);
-	}
-
-	@Override
-	public void eliminarVehiculo(VehiculoModel vehiculo) {
-		entityManager.remove(getVehiculoById(vehiculo.getIdplaca()));
-		
 	}
 
 	@Override

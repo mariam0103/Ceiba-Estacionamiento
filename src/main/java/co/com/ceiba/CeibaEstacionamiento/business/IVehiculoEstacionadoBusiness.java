@@ -1,5 +1,7 @@
 package co.com.ceiba.CeibaEstacionamiento.business;
 
+import java.util.Date;
+
 import org.json.JSONArray;
 
 import co.com.ceiba.CeibaEstacionamiento.model.EstacionamientoModel;
@@ -10,4 +12,6 @@ public interface IVehiculoEstacionadoBusiness {
 	JSONArray listaCarrosEstacionados();
 	JSONArray listaMotosEstacionadas();
 	void estaElVehiculoEstacionado(VehiculoModel vehiculo);
+	Double precioVehiculo(VehiculoModel vehiculo);
+	Double calcularPrecioEstacionamiento(VehiculoModel vehiculo, Date fechaingreso,Date fechasalida);
 }

@@ -1,12 +1,9 @@
 package co.com.ceiba.CeibaEstacionamiento.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,30 +25,12 @@ public class VehiculoController {
 	 
 	 	@Autowired
 	    private IVehiculoBusiness vehiculoBusiness; 
-	    
-	    @GetMapping(VEHICULO)
-	    public List<VehiculoModel> listado(HttpServletResponse resp){
-	        return vehiculoBusiness.listado(); 
-	    }
-	    
-	    
+
 	    @PostMapping(VEHICULO)
 	    public @ResponseBody VehiculoModel crearVehiculo(@RequestBody VehiculoModel vehiculo){
 	    	return vehiculoBusiness.crearVehiculo(vehiculo);
 	    }
-	    
-	    @DeleteMapping(VEHICULO)
-	    public String eliminarVehiculo(@RequestBody VehiculoModel vehiculo){
-	    	vehiculoBusiness.eliminarVehiculo(vehiculo);
-	        return "El vehiculo fue eliminado exitosamente";
-	    }
-	    
-	    @PutMapping(VEHICULO)
-	    public String actualizarProducto(@RequestBody VehiculoModel vehiculo){
-	    	vehiculoBusiness.actualizarVehiculo(vehiculo);
-	        return "El vehiculo fue actualizado exitosamente";
-	    }
-	    
+
 	    @GetMapping(VEHICULO+"/contarCarros")
 	    public Integer contarCarros(HttpServletResponse resp){
 	        return vehiculoBusiness.contarCarros();
@@ -62,5 +41,9 @@ public class VehiculoController {
 	        return vehiculoBusiness.contarMotos();
 	    }
 	    
+	    @PutMapping(VEHICULO)
+	    public @ResponseBody VehiculoModel salidaVehiculo(@RequestBody VehiculoModel vehiculo){
+	    	return vehiculoBusiness.actualizarVehiculo(vehiculo);
+	    } 
 	    
 }
