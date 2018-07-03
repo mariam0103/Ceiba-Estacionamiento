@@ -57,9 +57,7 @@ public class VehiculoEstacionadoBusinessImpl implements IVehiculoEstacionadoBusi
 	@Override
 	public Double precioVehiculo(VehiculoModel vehiculo) {
 		List<EstacionamientoModel> vehiculoEstacionado = estacionamientoBusiness.vehiculoEstacionado(vehiculo);
-		EstacionamientoModel estacionamiento = vehiculoEstacionado.get(0);
-		Double precio = calcularPrecioEstacionamiento(vehiculo, estacionamiento.getFechaingreso(),estacionamiento.getFechasalida());
-		return precio;
+		return vehiculoEstacionado.get(0).getPrecio();
 	}
 	
 	@Override

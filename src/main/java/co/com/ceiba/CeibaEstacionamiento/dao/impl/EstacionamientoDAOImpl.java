@@ -50,7 +50,7 @@ public class EstacionamientoDAOImpl implements IEstacionamientoDAO{
 			Query query =  entityManager.createQuery("SELECT e FROM EstacionamientoModel e \r\n" + 
 					"INNER JOIN VehiculosEstacionadosModel ve ON ve.vehiculosEstacionadosPK.idestacionamiento = e.idestacionamiento \r\n" + 
 					"INNER JOIN VehiculoModel v ON v.idplaca = ve.vehiculosEstacionadosPK.idplaca \r\n "+
-					"WHERE e.fechasalida IS NULL AND e.precio IS NULL AND ve.vehiculosEstacionadosPK.idplaca='"+vehiculo.getIdplaca()+"'");
+					"WHERE ve.vehiculosEstacionadosPK.idplaca='"+vehiculo.getIdplaca()+"'");
 			result = query.getResultList();
 		} catch (Exception e) {
 			throw new PersistenceException("Ha ocurrido un error en la consulta vehiculoEstacionado");
