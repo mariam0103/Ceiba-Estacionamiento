@@ -28,13 +28,7 @@ public class VehiculoBusinessImplTest{
 			e.printStackTrace();
 		} 
 	 }
-	 
-	 @AfterClass
-	 public static void afterClass() {
-		  entityManager.close();
-		  entityManagerFactory.close();
-	 }
-	 
+
 	 @Test
 	 public void before(){
 		 try {
