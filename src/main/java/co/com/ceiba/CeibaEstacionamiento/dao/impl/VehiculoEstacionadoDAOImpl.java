@@ -68,12 +68,12 @@ public class VehiculoEstacionadoDAOImpl implements IVehiculosEstacionadosDAO{
 					"			WHERE v.idtipo = 2 AND e.fechasalida IS NULL AND e.precio IS NULL");
 			List lista = query.getResultList();
 			for(int i=0; i< lista.size(); i++) {
-				JSONObject json = new JSONObject();
+				JSONObject json2 = new JSONObject();
 				Object[] object = (Object[]) lista.get(i);
-				json.put("fechaingreso", object[0] != null ? object[0].toString() : "");
-				json.put("idplaca", object[1] != null ? object[1].toString() : "");
-				json.put("cilindraje", object[2] != null ? object[2].toString() : "");
-				array.put(json);
+				json2.put("fechaingreso", object[0] != null ? object[0].toString() : "");
+				json2.put("idplaca", object[1] != null ? object[1].toString() : "");
+				json2.put("cilindraje", object[2] != null ? object[2].toString() : "");
+				array.put(json2);
 			}
 		} catch (Exception e) {
 			throw new PersistenceException("Ha ocurrido un error en la consulta listaMotosEstacionadas");

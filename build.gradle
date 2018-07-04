@@ -10,6 +10,7 @@ buildscript {
 	}
 }
 
+apply plugin: 'war'
 apply plugin: 'jacoco'
 apply plugin: 'java'
 apply plugin: 'eclipse'

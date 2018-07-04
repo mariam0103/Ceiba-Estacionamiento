@@ -15,7 +15,7 @@ import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 public class VehiculoDAOImpl implements IVehiculoDAO{
 	
 	@PersistenceContext	
-    private EntityManager entityManager;
+    public EntityManager entityManager;
 	
 	@Override
 	public VehiculoModel getVehiculoById(String placa) {
