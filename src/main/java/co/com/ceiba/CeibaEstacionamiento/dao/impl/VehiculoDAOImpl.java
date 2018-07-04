@@ -2,6 +2,7 @@ package co.com.ceiba.CeibaEstacionamiento.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
@@ -48,7 +49,7 @@ public class VehiculoDAOImpl implements IVehiculoDAO{
 					"			WHERE v.idtipo = 1 AND e.fechasalida IS NULL AND e.precio IS NULL");
 			result = Integer.parseInt(query.getSingleResult().toString());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new PersistenceException("Ha ocurrido un error en la consulta contarCarros");
 		}
 		return result;
 	}
@@ -65,9 +66,13 @@ public class VehiculoDAOImpl implements IVehiculoDAO{
 					"			WHERE v.idtipo = 2 AND e.fechasalida IS NULL AND e.precio IS NULL");
 			result = Integer.parseInt(query.getSingleResult().toString());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new PersistenceException("Ha ocurrido un error en la consulta contarMotos");
 		}
 		return result;
+	}
+	
+	public void eliminar(VehiculoModel vehiculo){
+		entityManager.remove(getVehiculoById(vehiculo.getIdplaca()));
 	}
 
 }

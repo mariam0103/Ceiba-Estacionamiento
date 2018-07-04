@@ -1,46 +1,42 @@
 package co.com.ceiba.CeibaEstacionamiento.business.ImplTest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import co.com.ceiba.CeibaEstacionamiento.dao.impl.VehiculoDAOImpl;
+import org.mockito.Mockito;
+
+import co.com.ceiba.CeibaEstacionamiento.business.impl.VehiculoBusinessImpl;
+import co.com.ceiba.CeibaEstacionamiento.dao.IVehiculoDAO;
 import co.com.ceiba.CeibaEstacionamiento.model.VehiculoModel;
 import co.com.ceiba.CeibaEstacionamiento.modelTest.VehiculoBuilder;
 
 public class VehiculoBusinessImplTest{
-	 private static EntityManagerFactory entityManagerFactory;
-	 private static EntityManager entityManager;
-	 
-	 @Autowired
-	 private VehiculoDAOImpl VehiculoDAOImpl;
-
-	 @BeforeClass
-	 public static void beforeClass() {
-		 try {
-			 entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistence");
-			 entityManager = entityManagerFactory.createEntityManager();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-	 }
-
-	 @Test
-	 public void before(){
-		 try {
-			 VehiculoDAOImpl =  new VehiculoDAOImpl();
-			  VehiculoDAOImpl.entityManager = entityManager;
-			  entityManager.getTransaction().begin();
-			  VehiculoModel vehiculo = new VehiculoBuilder().build();
-			  VehiculoDAOImpl.crearVehiculo(vehiculo);
-			  entityManager.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	 }
+	
+	private VehiculoBusinessImpl vehiculoBusinessImpl = Mockito.mock(VehiculoBusinessImpl.class);
+	
+	@Before
+	public void before() {
+		vehiculoBusinessImpl = Mockito.mock(VehiculoBusinessImpl.class);
+	}
+	
+	@Test
+	public void permitirIngresoVehiculosConPlacaA(){
+		VehiculoBusinessImpl Impl = new VehiculoBusinessImpl();
+		VehiculoModel vehiculo = new VehiculoBuilder().build();
+		Boolean empezizaConA = Impl.empiezaConA(vehiculo.getIdplaca());
+		assertEquals(true, empezizaConA);
+	}
+	
+	
+	@Test
+	public void contarCarrosTest(){
+		Mockito.when(vehiculoBusinessImpl.contarCarros()).thenReturn(1);
+	}
+	
+	@Test
+	public void contarCarrosMotos(){
+		Mockito.when(vehiculoBusinessImpl.contarMotos()).thenReturn(1);
+	}
 
 }

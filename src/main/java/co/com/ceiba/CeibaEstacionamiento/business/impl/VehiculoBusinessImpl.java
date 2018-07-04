@@ -122,7 +122,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 					throw new CeibaException("Las placa iniciadas con la letra A solo pueden ingresar los dias diferentes a los Lunes y Domingos");
 				}
 			}	
-	}
+	} 
 	
 	public void guardarVehiculo(VehiculoModel vehiculo){
 		VehiculoModel existeVehiculo=getVehiculoById(vehiculo.getIdplaca());

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.com.ceiba.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-07-04T14:32:00" hostname="MARIA-MOLINA" time="0.0">
+<testsuite name="co.com.ceiba.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-07-04T20:56:08" hostname="MARIA-MOLINA" time="0.0">
   <properties/>
   <testcase name="contextLoads" classname="co.com.ceiba.CeibaEstacionamiento.CeibaEstacionamientoApplicationTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
