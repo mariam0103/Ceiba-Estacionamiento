@@ -20,6 +20,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 	@Autowired
 	private IVehiculoDAO vehiculoDAO;
 	
+	
 	@Autowired
 	private IVehiculoEstacionadoBusiness vehiculoEstacionadoBusiness; 
 	
@@ -64,7 +65,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 
 	@Override
 	public Integer contarCarros() {
-		return vehiculoDAO.contarCarros();
+		return vehiculoDAO.contarCarros(); 
 	}
 
 	@Override
@@ -72,6 +73,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		return vehiculoDAO.contarMotos();
 	}
 	
+	@Override
 	public void validacionesVehiculoModel(VehiculoModel vehiculo) {
 		if(vehiculo.getIdplaca() ==null || vehiculo.getIdplaca().isEmpty()){
 			throw new CeibaException("La placa es obligatoria");
@@ -84,6 +86,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		}
 	}
 	
+	@Override
 	public void validacionEspacioEstacionamiento(Integer idtipo) {
 		Boolean espacio = true;
 		if (idtipo == 1 && contarCarros() >= 20) {
@@ -97,6 +100,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		}
 	}
 	
+	@Override
 	public Boolean empiezaConA(String placa) {
 		Boolean letraA = false;
 		try {
@@ -113,6 +117,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 		return letraA;
 	}
 	
+	@Override
 	public void permitirIngresoVehiculosConPlacaA(String placa) {
 			Boolean empizaConA = empiezaConA(placa);
 			if(empizaConA){
@@ -124,6 +129,7 @@ public class VehiculoBusinessImpl implements IVehiculoBusiness{
 			}	
 	} 
 	
+	@Override
 	public void guardarVehiculo(VehiculoModel vehiculo){
 		VehiculoModel existeVehiculo=getVehiculoById(vehiculo.getIdplaca());
 		try {

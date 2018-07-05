@@ -8,4 +8,9 @@ public interface IVehiculoBusiness {
     VehiculoModel actualizarVehiculo(VehiculoModel vehiculo);
     Integer contarCarros();
     Integer contarMotos();
+    void validacionesVehiculoModel(VehiculoModel vehiculo);
+    void validacionEspacioEstacionamiento(Integer idtipo);
+    Boolean empiezaConA(String placa);
+    void permitirIngresoVehiculosConPlacaA(String placa);
+    void guardarVehiculo(VehiculoModel vehiculo);
 }
